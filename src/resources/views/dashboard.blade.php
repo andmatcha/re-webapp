@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.dashboard')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    @vite('resources/css/app.css')
-    <title>ダッシュボード | POSSE WEB APP</title>
-</head>
+@section('title', 'ダッシュボード | POSSE WEB APP')
 
-<body>
+@section('body')
     <header>
         {{-- ロゴ week表示 ログアウトボタン 記録・投稿ボタン --}}
     </header>
@@ -36,6 +29,4 @@
     <footer>
         {{-- 月表示 月移動ボタン --}}
     </footer>
-</body>
-
-</html>
+@endsection
