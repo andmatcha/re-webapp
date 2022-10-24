@@ -9,6 +9,6 @@
     <title>@yield('title')</title>
 </head>
 
-<body>
+<body class="h-screen flex flex-col">
   @yield('body')
 </body>
