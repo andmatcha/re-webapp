@@ -25,7 +25,7 @@
             </div>
             <div class="bg-white rounded-xl grow w-full">
                 {{-- 日別学習時間棒グラフ --}}
-                <div id="barChartArea"></div>
+                <canvas id="barChartArea"></canvas>
             </div>
         </section>
         <section class="bg-white w-1/4 rounded-xl px-5 py-8">
