@@ -3,7 +3,7 @@
 @section('title', 'ダッシュボード | POSSE WEB APP')
 
 @section('body')
-    <header class="h-16 px-8 flex items-center justify-between bg-white">
+    <header class="h-20 px-8 flex items-center justify-between bg-white">
         {{-- ロゴ week表示 ログアウトボタン 記録・投稿ボタン --}}
         <div class="flex items-center gap-4">
             <div>
