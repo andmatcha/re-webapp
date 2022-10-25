@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->date('date');
-            $table->unsignedInteger('amount');
+            $table->unsignedFloat('amount');
             $table->foreignId('language_id')->nullable()->constrained();
             $table->foreignId('content_id')->nullable()->constrained();
             $table->timestamps();
