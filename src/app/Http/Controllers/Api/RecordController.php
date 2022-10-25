@@ -25,12 +25,12 @@ class RecordController extends Controller
             })
             ->values();
 
-            $total_by_language = Record::where('user_id', $user_id)
+            $total_by_language = Record::with('language_record')->where('user_id', $user_id)
             ->where('year', $year)
             ->where('month', $month)
-            ->language_record();
+            ->get();
 
-        dd($daily_amounts);
+        dd($total_by_language);
 
         $response_data = [
             'user_id' => $user_id,

@@ -7,7 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ContentRecordSeeder extends Seeder
+class ContentRecordsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class ContentRecordSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('content_record')->insert([
+        DB::table('content_records')->insert([
             ['record_id' => 1, 'content_id' => 1, 'amount' => 1, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['record_id' => 1, 'content_id' => 3, 'amount' => 1, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['record_id' => 2, 'content_id' => 1, 'amount' => 1, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],

@@ -7,7 +7,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class LanguageRecordSeeder extends Seeder
+class LanguageRecordsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,7 +16,7 @@ class LanguageRecordSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('language_record')->insert([
+        DB::table('language_records')->insert([
             ['record_id' => 1, 'language_id' => 2, 'amount' => 1, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['record_id' => 1, 'language_id' => 5, 'amount' => 1, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
             ['record_id' => 2, 'language_id' => 4, 'amount' => 1.5, 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()],
