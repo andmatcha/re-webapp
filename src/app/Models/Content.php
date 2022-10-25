@@ -9,8 +9,8 @@ class Content extends Model
 {
     use HasFactory;
 
-    public function study_records()
+    public function records()
     {
-        return $this->hasMany(StudyRecord::class);
+        return $this->hasMany(Record::class);
     }
 }

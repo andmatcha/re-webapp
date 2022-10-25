@@ -4,14 +4,22 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
-class StudyRecordController extends Controller
+class RecordController extends Controller
 {
     public function index(Request $request)
     {
         $user_id = $request->user_id ?? null;
-        
+        $year = $request->year ?? null;
+        $month = $request->month ?? null;
+        $records = DB::table('records')
+            ->where('user_id', '=', $user_id)
+            ->whereYear('date', $year)
+            ->whereMonth('date', $month)->get();
+
+        dd($records);
 
         $response_data = [
             'user_id' => 1,
