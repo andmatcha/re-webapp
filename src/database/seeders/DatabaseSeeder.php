@@ -24,7 +24,9 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             LanguagesTableSeeder::class,
             ContentsTableSeeder::class,
-            RecordsTableSeeder::class
+            RecordsTableSeeder::class,
+            LanguageRecordSeeder::class,
+            ContentRecordSeeder::class
         ]);
     }
 }
