@@ -31,12 +31,12 @@
         <section class="bg-white w-1/4 rounded-xl px-5 py-8">
             <h3 class="font-bold text-2xl">学習言語</h3>
             {{-- 学習言語の円グラフ --}}
-            <div id="languageChartArea"></div>
+            <canvas id="languageChartArea"></canvas>
         </section>
         <section class="bg-white w-1/4 rounded-xl px-5 py-8">
             <h3 class="font-bold text-2xl">学習コンテンツ</h3>
             {{-- 学習コンテンツの円グラフ --}}
-            <div id="contentsChartArea"></div>
+            <canvas id="contentsChartArea"></canvas>
         </section>
     </main>
     <footer class="h-24 w-full bg-main-bg-grey flex items-center justify-center gap-5">

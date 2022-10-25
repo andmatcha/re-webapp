@@ -1,16 +1,4 @@
 import Chart from 'chart.js/auto';
-import dayjs from 'dayjs';
-
-const startDate = dayjs().startOf('month');
-const endDate = dayjs().add(1, 'month').startOf('month');
-const dates = [];
-let date = startDate;
-while (date.isBefore(endDate)) {
-  dates.push(date.date());
-  date = date.add(1, 'day');
-}
-
-console.log(dates);
 
 const sampleData = {
   user_id: 1,
@@ -50,11 +38,6 @@ const sampleData = {
       { date: 30, amount: 0 },
       { date: 31, amount: 1 }
     ],
-    by_content: [
-      { id: 1, name: 'POSSE課題', amount: 430 },
-      { id: 2, name: 'N予備校', amount: 74 },
-      { id: 3, name: 'ドットインストール', amount: 50 }
-    ],
     by_language: [
       { id: 1, name: 'HTML', amount: 58 },
       { id: 2, name: 'CSS', amount: 82 },
@@ -64,19 +47,24 @@ const sampleData = {
       { id: 6, name: 'Laravel', amount: 86 },
       { id: 7, name: 'SHELL', amount: 45 },
       { id: 8, name: '情報システム基礎知識(その他)', amount: 23 }
+    ],
+    by_content: [
+      { id: 1, name: 'POSSE課題', amount: 430 },
+      { id: 2, name: 'N予備校', amount: 74 },
+      { id: 3, name: 'ドットインストール', amount: 50 }
     ]
   }
 };
 
-const ctx = document.getElementById('barChartArea');
-const barChart = new Chart(ctx, {
+const barChartCtx = document.getElementById('barChartArea');
+const barChart = new Chart(barChartCtx, {
   type: 'bar',
   data: {
-    labels: dates,
+    labels: sampleData.total.daily.map(item => item.date),
     datasets: [{
-      label: "学習時間",
+      label: '学習時間',
       data: sampleData.total.daily.map(item => item.amount),
-      backgroundColor: ["#0f71ba"],
+      backgroundColor: ['#0f71ba'],
     }]
   },
   options: {
@@ -88,5 +76,18 @@ const barChart = new Chart(ctx, {
     layout: {
       padding: 20
     }
+  }
+});
+
+const languageChartCtx = document.getElementById('languageChartArea');
+const languageChart = new Chart(languageChartCtx, {
+  type: 'doughnut',
+  data: {
+    labels: sampleData.total.by_language.map(item => item.name),
+    datasets: [{
+      label: '学習言語',
+      data: sampleData.total.by_language.map(item => item.amount),
+      backgroundColor: ['#0544ec', '#0f70bd', '#20bdde', '#3dceff', '#b29ff2', '#6d46ea', '#4b16ef', '#3105c1']
+    }]
   }
 });
