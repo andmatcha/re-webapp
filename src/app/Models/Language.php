@@ -9,8 +9,8 @@ class Language extends Model
 {
     use HasFactory;
 
-    public function records()
+    public function language_record()
     {
-        return $this->hasMany(Record::class);
+        return $this->hasMany(LanguageRecord::class);
     }
 }

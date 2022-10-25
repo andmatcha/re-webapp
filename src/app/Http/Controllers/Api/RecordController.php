@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Record;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class RecordController extends Controller
@@ -14,21 +14,30 @@ class RecordController extends Controller
         $user_id = $request->user_id ?? null;
         $year = $request->year ?? null;
         $month = $request->month ?? null;
-        $records = DB::table('records')
-            ->where('user_id', '=', $user_id)
-            ->whereYear('date', $year)
-            ->whereMonth('date', $month)->get();
 
-        dd($records);
+        $daily_amounts = Record::where('user_id', $user_id)
+            ->where('year', $year)
+            ->where('month', $month)
+            ->get()
+            ->groupBy('day')
+            ->map(function ($item, $day) {
+                return ['day' => $day, 'amount' => $item->sum('amount')];
+            })
+            ->values();
+
+            $total_by_language = Record::where('user_id', $user_id)
+            ->where('year', $year)
+            ->where('month', $month)
+            ->language_record();
+
+        dd($daily_amounts);
 
         $response_data = [
-            'user_id' => 1,
-            'year' => 2022,
-            'month' => 10,
+            'user_id' => $user_id,
+            'year' => $year,
+            'month' => $month,
             'total' => [
-                'daily' => [
-                    ['date' => 1, 'amount' => 1]
-                ],
+                'daily' => $daily_amounts,
                 'by_language' => [
                     ['id' => 1, 'name' => 'HTML', 'amount' => 1]
                 ],

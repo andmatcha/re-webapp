@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Record extends Model
+class LanguageRecord extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    public function language_record()
+    public function language()
     {
-        return $this->hasMany(LanguageRecord::class);
+        return $this->belongsTo(Language::class);
     }
 
-    public function content_record()
+    public function record()
     {
-        return $this->hasMany(ContentRecord::class);
+        return $this->belongsTo(Record::class);
     }
 }
