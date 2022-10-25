@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class ContentsTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,10 +15,8 @@ class ContentsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('contents')->insert([
-            ['name' => 'POSSE課題'],
-            ['name' => 'N予備校'],
-            ['name' => 'ドットインストール']
+        DB::table('users')->insert([
+            ['name' => '青柳仁', 'email' => 'test@email.com', 'password' => bcrypt('password')]
         ]);
     }
 }
