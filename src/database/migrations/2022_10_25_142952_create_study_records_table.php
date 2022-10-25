@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreignId('language_id')->nullable()->constrained();
             $table->foreignId('content_id')->nullable()->constrained();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
