@@ -56,6 +56,18 @@ const sampleData = {
   }
 };
 
+// レスポンスデータを加工
+const processResponse = ((data) => {
+  // 学習言語、学習コンテンツごとの学習時間の集計を降順にソート
+  data.total.by_language = data.total.by_language.sort((a, b) => {
+    return (a.amount > b.amount) ? -1 : 1;
+  });
+  data.total.by_content = data.total.by_content.sort((a, b) => {
+    return (a.amount > b.amount) ? -1 : 1;
+  });
+})(sampleData);
+
+// 日毎の学習時間棒グラフ
 const barChartCtx = document.getElementById('barChartArea');
 const barChart = new Chart(barChartCtx, {
   type: 'bar',
@@ -79,6 +91,7 @@ const barChart = new Chart(barChartCtx, {
   }
 });
 
+// 言語ごとの学習時間円グラフ
 const languageChartCtx = document.getElementById('languageChartArea');
 const languageChart = new Chart(languageChartCtx, {
   type: 'doughnut',
