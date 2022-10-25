@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            ['name' => '青柳仁', 'email' => 'test@email.com', 'password' => bcrypt('password')]
+            ['name' => '青柳仁', 'email' => 'test@email.com', 'password' => bcrypt('password'), 'created_at' => Carbon::now(), 'updated_at' => Carbon::now()]
         ]);
     }
 }
