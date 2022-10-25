@@ -91,6 +91,8 @@ const barChart = new Chart(barChartCtx, {
   }
 });
 
+const donutChartBackgroundColor = ['#0544ec', '#0f70bd', '#20bdde', '#3dceff', '#b29ff2', '#6d46ea', '#4b16ef', '#3105c1'];
+
 // 言語ごとの学習時間円グラフ
 const languageChartCtx = document.getElementById('languageChartArea');
 const languageChart = new Chart(languageChartCtx, {
@@ -100,7 +102,21 @@ const languageChart = new Chart(languageChartCtx, {
     datasets: [{
       label: '学習言語',
       data: sampleData.total.by_language.map(item => item.amount),
-      backgroundColor: ['#0544ec', '#0f70bd', '#20bdde', '#3dceff', '#b29ff2', '#6d46ea', '#4b16ef', '#3105c1']
+      backgroundColor: donutChartBackgroundColor
+    }]
+  }
+});
+
+// コンテンツごとの学習時間円グラフ
+const contentChartCtx = document.getElementById('contentChartArea');
+const contentChart = new Chart(contentChartCtx, {
+  type: 'doughnut',
+  data: {
+    labels: sampleData.total.by_content.map(item => item.name),
+    datasets: [{
+      label: '学習コンテンツ',
+      data: sampleData.total.by_content.map(item => item.amount),
+      backgroundColor: donutChartBackgroundColor
     }]
   }
 });

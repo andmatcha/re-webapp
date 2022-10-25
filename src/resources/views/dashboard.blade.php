@@ -36,7 +36,7 @@
         <section class="bg-white w-1/4 rounded-xl px-5 py-8">
             <h3 class="font-bold text-2xl">学習コンテンツ</h3>
             {{-- 学習コンテンツの円グラフ --}}
-            <canvas id="contentsChartArea"></canvas>
+            <canvas id="contentChartArea"></canvas>
         </section>
     </main>
     <footer class="h-24 w-full bg-main-bg-grey flex items-center justify-center gap-5">
