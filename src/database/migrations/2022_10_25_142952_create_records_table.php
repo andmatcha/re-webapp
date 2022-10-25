@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('records', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->date('date');
+            $table->unsignedInteger('year');
+            $table->unsignedInteger('month');
+            $table->unsignedInteger('day');
             $table->unsignedFloat('amount');
-            $table->foreignId('language_id')->nullable()->constrained();
-            $table->foreignId('content_id')->nullable()->constrained();
             $table->timestamps();
             $table->softDeletes();
         });
