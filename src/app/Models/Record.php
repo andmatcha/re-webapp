@@ -13,9 +13,9 @@ class Record extends Model
     use SoftDeletes;
 
     protected $guarded = ['id'];
-    private $user_id;
-    private $year;
-    private $month;
+    private int $user_id;
+    private int $year;
+    private int $month;
 
     public function language_records()
     {
