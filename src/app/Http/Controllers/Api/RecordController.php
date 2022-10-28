@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Record;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class RecordController extends Controller
@@ -14,36 +15,16 @@ class RecordController extends Controller
         $user_id = $request->user_id ?? null;
         $year = $request->year ?? null;
         $month = $request->month ?? null;
-
-        $daily_amounts = Record::where('user_id', $user_id)
-            ->where('year', $year)
-            ->where('month', $month)
-            ->get()
-            ->groupBy('day')
-            ->map(function ($item, $day) {
-                return ['day' => $day, 'amount' => $item->sum('amount')];
-            })
-            ->values();
-
-            $total_by_language = Record::with('language_record')->where('user_id', $user_id)
-            ->where('year', $year)
-            ->where('month', $month)
-            ->get();
-
-        dd($total_by_language);
+        $record = Record::new($user_id, $year, $month);
 
         $response_data = [
             'user_id' => $user_id,
             'year' => $year,
             'month' => $month,
             'total' => [
-                'daily' => $daily_amounts,
-                'by_language' => [
-                    ['id' => 1, 'name' => 'HTML', 'amount' => 1]
-                ],
-                'by_content' => [
-                    ['id' => 1, 'name' => 'POSSE課題', 'amount' => 1]
-                ]
+                'daily' => $record->dailyTodal(),
+                'by_language' => $record->totalByLanguage(),
+                'by_content' => $record->totalByContent()
             ]
         ];
 
