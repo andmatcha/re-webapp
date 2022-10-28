@@ -36,7 +36,12 @@ class Record extends Model
         return $instance;
     }
 
-    public function dailyTodal()
+    /**
+     * 日毎の学習時間
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function dailyTodal(): \Illuminate\Support\Collection
     {
         return Record::where('user_id', $this->user_id)
             ->where('year', $this->year)
@@ -49,7 +54,13 @@ class Record extends Model
             ->values();
     }
 
-    public function totalByLanguage() {
+    /**
+     * 言語ごとの学習時間
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function totalByLanguage(): \Illuminate\Support\Collection
+    {
         return DB::table('records')
             ->join('language_records', 'records.id', '=', 'language_id')
             ->join('languages', 'language_id', '=', 'languages.id')
@@ -62,7 +73,12 @@ class Record extends Model
             ->get();
     }
 
-    public function totalByContent()
+    /**
+     * コンテンツごとの学習時間
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function totalByContent(): \Illuminate\Support\Collection
     {
         return DB::table('records')
         ->join('content_records', 'records.id', '=', 'content_id')
