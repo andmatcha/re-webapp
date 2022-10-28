@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -43,15 +44,25 @@ class Record extends Model
      */
     public function dailyTodal(): \Illuminate\Support\Collection
     {
-        return Record::where('user_id', $this->user_id)
-            ->where('year', $this->year)
-            ->where('month', $this->month)
-            ->get()
-            ->groupBy('day')
-            ->map(function ($item, $day) {
-                return ['day' => $day, 'amount' => $item->sum('amount')];
-            })
-            ->values();
+        $daily_total = Record::where('user_id', $this->user_id)
+        ->where('year', $this->year)
+        ->where('month', $this->month)
+        ->get()
+        ->groupBy('day')
+        ->map(function ($item, $day) {
+            return ['day' => $day, 'amount' => $item->sum('amount')];
+        })
+        ->values();
+        $daily_total = collect($daily_total);
+
+        // レコードがない日は0として記録
+        $days_in_month = Carbon::createFromDate($this->year, $this->month)->daysInMonth;
+        foreach (range(1, $days_in_month) as $day) {
+            if (!$daily_total->contains('day', $day)){
+                $daily_total->push(['day' => $day, 'amount' => 0]);
+            }
+        }
+        return $daily_total->sortBy('day');
     }
 
     /**
