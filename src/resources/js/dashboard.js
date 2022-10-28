@@ -1,36 +1,76 @@
 import Chart from 'chart.js/auto';
-import dayjs from 'dayjs';
+import axios from 'axios';
 
-const startDate = dayjs().startOf('month');
-const endDate = dayjs().add(1, 'month').startOf('month');
-const dates = [];
-let date = startDate;
-while (date.isBefore(endDate)) {
-  dates.push(date.date());
-  date = date.add(1, 'day');
+const BASE_URL = 'http://localhost:80/api'
+const donutChartBackgroundColor = ['#0544ec', '#0f70bd', '#20bdde', '#3dceff', '#b29ff2', '#6d46ea', '#4b16ef', '#3105c1'];
+
+const jsonGet = async () => {
+  try {
+    const res = await axios.get(`${BASE_URL}/records`, {
+      params: {
+        user_id: 1,
+        year: 2022,
+        month: 10
+      }
+    });
+    return res.data;
+  } catch (err) {
+    console.error(err);
+  }
 }
 
-console.log(dates);
+window.onload = async () => {
+  const data = await jsonGet();
 
-const ctx = document.getElementById('barChartArea');
-const barChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: dates,
-    datasets: [{
-      label: "test",
-      data: [1, 2, 10, 3, 5, 1, 0 , 4, 8, 1, 3, 2, 4, 2, 0 , 0, 3, 4, 5, 3, 1, 2, 1, 5, 2, 1, 4, 0, 1, 1, 4],
-      backgroundColor: [],
-    }]
-  },
-  options: {
-    plugins: {
-      legend: {
-        display: false
-      }
+  // 日毎の学習時間棒グラフ
+  const barChartCtx = document.getElementById('barChartArea');
+  const barChart = new Chart(barChartCtx, {
+    type: 'bar',
+    data: {
+      labels: data.total.daily.map(item => item.day),
+      datasets: [{
+        label: '学習時間',
+        data: data.total.daily.map(item => item.amount),
+        backgroundColor: ['#0f71ba'],
+      }]
     },
-    layout: {
-      padding: 20
+    options: {
+      plugins: {
+        legend: {
+          display: false
+        }
+      },
+      layout: {
+        padding: 20
+      }
     }
-  }
-});
+  });
+
+  // 言語ごとの学習時間円グラフ
+  const languageChartCtx = document.getElementById('languageChartArea');
+  const languageChart = new Chart(languageChartCtx, {
+    type: 'doughnut',
+    data: {
+      labels: data.total.by_language.map(item => item.name),
+      datasets: [{
+        label: '学習言語',
+        data: data.total.by_language.map(item => item.amount),
+        backgroundColor: donutChartBackgroundColor
+      }]
+    }
+  });
+
+  // コンテンツごとの学習時間円グラフ
+  const contentChartCtx = document.getElementById('contentChartArea');
+  const contentChart = new Chart(contentChartCtx, {
+    type: 'doughnut',
+    data: {
+      labels: data.total.by_content.map(item => item.name),
+      datasets: [{
+        label: '学習コンテンツ',
+        data: data.total.by_content.map(item => item.amount),
+        backgroundColor: donutChartBackgroundColor
+      }]
+    }
+  });
+};
