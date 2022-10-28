@@ -14,6 +14,7 @@ app/install:
 	docker-compose exec app npm install
 app/laravel-init:
 	docker-compose exec app cp .env.example .env
+	docker-compose exec app php artisan key:generate
 	docker-compose exec app php artisan migrate
 	docker-compose exec app php artisan db:seed
 init:
