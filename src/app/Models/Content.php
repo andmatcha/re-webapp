@@ -9,7 +9,9 @@ class Content extends Model
 {
     use HasFactory;
 
-    public function content_record()
+    protected $guarded = ['id'];
+
+    public function content_records()
     {
         return $this->hasMany(ContentRecord::class);
     }

@@ -9,7 +9,9 @@ class Language extends Model
 {
     use HasFactory;
 
-    public function language_record()
+    protected $guarded = ['id'];
+
+    public function language_records()
     {
         return $this->hasMany(LanguageRecord::class);
     }

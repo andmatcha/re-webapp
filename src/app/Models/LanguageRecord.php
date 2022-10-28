@@ -11,6 +11,8 @@ class LanguageRecord extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $guarded = ['id'];
+
     public function language()
     {
         return $this->belongsTo(Language::class);
