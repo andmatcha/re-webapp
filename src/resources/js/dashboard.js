@@ -13,7 +13,6 @@ const jsonGet = async () => {
         month: 10
       }
     });
-    console.log(res.data);
     return res.data;
   } catch (err) {
     console.error(err);
